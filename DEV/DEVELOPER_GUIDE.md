@@ -45,6 +45,8 @@ If you are working inside of VS Code with C/C++ extension, it should warn you
 if you make any styling mistakes (please pay attention to the warnings).
 This helps us maintain a homogenous coding style while also reducing silly mistakes.
 
+**Please use descriptive commit messages!**
+
 ## Git
 
 For this project we have no limitations regarding pull requests and branch creation/naming.
