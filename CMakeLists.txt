@@ -59,6 +59,10 @@ set(
         src/Window.cpp
         src/Shader.cpp
         src/Shader.h
+        src/ComputeShader.cpp
+        src/ComputeShader.h
+        src/VertexFragmentShader.cpp
+        src/VertexFragmentShader.h
 )
 
 # Include OpenMP

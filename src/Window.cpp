@@ -1,7 +1,8 @@
 #include "Window.h"
 #include <iostream>
 
-Window::Window(glm::vec2 window, const std::string title): windowWidth(window.x), windowHeight(window.y), windowTitle(std::string(title).append(" ")){
+Window::Window(glm::vec2 window, const std::string &title): windowWidth(window.x), windowHeight(window.y),
+                                                            windowTitle(std::string(title).append(" ")) {
     this->initGlfw();
     this->createWindow();
     this->initGlad();
@@ -9,7 +10,7 @@ Window::Window(glm::vec2 window, const std::string title): windowWidth(window.x)
     glEnable(GL_PROGRAM_POINT_SIZE);
 }
 
-void Window::initGlfw(){
+void Window::initGlfw() {
     glfwInit();
     // OpenGL 4.5
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -21,10 +22,9 @@ void Window::initGlfw(){
 #endif
 }
 
-void Window::initGlad(){
+void Window::initGlad() {
     // Load all OpenGL function pointers
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
+    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         std::cout << "Failed to initialize GLAD" << std::endl;
         exit(-1);
     }
@@ -33,8 +33,7 @@ void Window::initGlad(){
 void Window::createWindow() {
     this->window = glfwCreateWindow(this->windowWidth, this->windowHeight, this->windowTitle.c_str(), nullptr, nullptr);
 
-    if (this->window == nullptr)
-    {
+    if (this->window == nullptr) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         exit(-1);
@@ -59,8 +58,8 @@ void Window::updateWindowSize(const int width, const int height) {
     glViewport(0, 0, width, height);
 }
 
-void Window::updateWindowTitle(const std::string title) {
-    glfwSetWindowTitle(this->getWindow(), title);
+void Window::updateWindowTitle(const std::string &title) {
+    glfwSetWindowTitle(this->getWindow(), title.c_str());
 }
 
 Window::Window() = default;

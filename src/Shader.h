@@ -63,14 +63,14 @@ protected:
     * @param shader Shader object.
     * @param type The type of the shader object ("VERTEX", "FRAGMENT", "PROGRAM", etc.) to use in the error messages.
     */
-    void checkCompileErrors(unsigned int shader, std::string type);
+    void checkCompileErrors(unsigned int shader, std::string &&type);
 
     /**
     * This function fixes path separators in the given string to be compatible with the current operating system.
     * On Windows, it replaces forward slashes with backslashes.
     * @param path The path to fix the separators of.
     */
-    void fixPathSeparators(std::string &path);
+    std::string fixPathSeparators(const std::string &path);
 
 
     /**
@@ -79,7 +79,7 @@ protected:
     * @param code The source code of the shader.
     * @return The ID of the compiled shader.
     */
-    unsigned int compileShader(GLuint shaderType, const char *code);
+    unsigned int compileShader(GLuint shaderType, const std::string &code);
 
     /**
     * Reads a file and returns its contents as a string.

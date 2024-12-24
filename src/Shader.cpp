@@ -1,6 +1,8 @@
 #include "Shader.h"
 
 #include "Shader.h"
+
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -13,10 +15,15 @@ Shader::~Shader() {
     glDeleteProgram(this->ID);
 }
 
-void Shader::fixPathSeparators(std::string &path) {
-#ifdef _WIN32
-    std::replace(path.begin(), path.end(), '/', '\\');
+std::string Shader::fixPathSeparators(const std::string &path) {
+#ifndef _WIN32
+    return path;
 #endif
+
+    std::string fixedPath;
+    std::replace_copy(path.begin(), path.end(), std::back_inserter(fixedPath), '/', '\\');
+
+    return fixedPath;
 }
 
 void Shader::use() const {
@@ -71,7 +78,7 @@ void Shader::setMat4(const std::string &name, const glm::mat4 &mat) const {
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
-void Shader::checkCompileErrors(unsigned int shader, std::string type) {
+void Shader::checkCompileErrors(unsigned int shader, std::string &&type) {
     int success;
     char infoLog[1024];
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
@@ -89,11 +96,12 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type) {
     }
 }
 
-unsigned int Shader::compileShader(GLuint shaderType, const char *code) {
+unsigned int Shader::compileShader(GLuint shaderType, const std::string &code) {
     unsigned int shader;
+    const char *codeCString = code.c_str();
 
     shader = glCreateShader(shaderType);
-    glShaderSource(shader, 1, &code, nullptr);
+    glShaderSource(shader, 1, &codeCString, nullptr);
     glCompileShader(shader);
 
     if (shaderType == GL_FRAGMENT_SHADER) {
@@ -110,7 +118,7 @@ unsigned int Shader::compileShader(GLuint shaderType, const char *code) {
 
 
 std::string Shader::readFileToString(std::string &filePath) {
-    this->fixPathSeparators(filePath);
+    filePath = std::move(this->fixPathSeparators(filePath));
     std::ifstream file(filePath);
     if (!file.is_open()) {
         throw std::runtime_error("Failed to open file: " + filePath);

@@ -11,18 +11,24 @@
 class Window {
 public:
     Window();
-    Window(glm::vec2 window, const std::string title);
+
+    Window(glm::vec2 window, const std::string &title);
+
     void updateWindowSize(const int width, const int height);
-    GLFWwindow* getWindow();
-    void updateWindowTitle(const std::string title);
+
+    GLFWwindow *getWindow();
+
+    void updateWindowTitle(const std::string &title);
 
 private:
-    GLFWwindow* window;
+    GLFWwindow *window;
     std::string windowTitle;
     unsigned int windowWidth, windowHeight;
 
     void initGlfw();
+
     void initGlad();
+
     void createWindow();
 };
 
