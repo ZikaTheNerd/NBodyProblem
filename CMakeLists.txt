@@ -63,6 +63,8 @@ set(
         src/ComputeShader.h
         src/VertexFragmentShader.cpp
         src/VertexFragmentShader.h
+        src/ParticleSystem.cpp
+        src/ParticleSystem.h
 )
 
 # Include OpenMP
