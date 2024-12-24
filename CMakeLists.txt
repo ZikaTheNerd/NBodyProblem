@@ -54,6 +54,11 @@ set(
         PROJECT_SOURCES
         src/main.cpp
         src/main.cpp
+        src/Camera.cpp
+        src/Particle.cpp
+        src/Window.cpp
+        src/Shader.cpp
+        src/Shader.h
 )
 
 # Include OpenMP
