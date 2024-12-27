@@ -1,30 +1,35 @@
-#include "Window.h"
+#pragma once
 
-#ifndef N_BODY_RENDERTIMER_H
-#define N_BODY_RENDERTIMER_H
-
+#include "Window.h";
 
 class RenderTimer {
 public:
     RenderTimer();
+
     RenderTimer(bool showFPS, bool vSync);
+
     void setDeltaTime(double time);
-    double getDeltaTime();
-    void updateTime(Window& window, bool paused);
-    void printFinalStats();
-    double getTotalElapsedTime();
-    int getIteration();
+
+    double getDeltaTime() const;
+
+    void updateTime(Window &window, bool paused);
+
+    void printFinalStats() const;
+
+    double getTotalElapsedTime() const;
+
+    int getIteration() const;
+
 private:
-    double deltaTime;
-    bool showFPS;
-    double previousTime;
-    size_t frameCount;
-    size_t totalIterations;
-    double totalElapsedTime;
-    double lastFrameTime;
-    void updateFPS(Window& window);
+    double m_deltaTime;
+    bool m_showFPS;
+    double m_previousTime;
+    size_t m_frameCount;
+    size_t m_totalIterations;
+    double m_totalElapsedTime;
+    double m_lastFrameTime;
+
+    void updateFPS(Window &window);
+
     void updateDeltaTime(bool paused);
 };
-
-
-#endif //N_BODY_RENDERTIMER_H

@@ -1,6 +1,6 @@
 #include "VertexFragmentShader.h"
 
-VertexFragmentShader::VertexFragmentShader(std::string &vertexShaderPath, std::string &fragmentShaderPath) {
+VertexFragmentShader::VertexFragmentShader(std::string vertexShaderPath, std::string fragmentShaderPath) {
     const std::string vertexShaderCode = readFileToString(vertexShaderPath);
     const std::string fragmentShaderCode = readFileToString(fragmentShaderPath);
 

@@ -65,6 +65,16 @@ set(
         src/VertexFragmentShader.h
         src/ParticleSystem.cpp
         src/ParticleSystem.h
+        src/RenderTimer.cpp
+        src/RenderTimer.h
+        src/RenderLoop.cpp
+        src/RenderLoop.h
+        src/ParticleSimulation.cpp
+        src/ParticleSimulation.h
+        src/ParticleDrawer.cpp
+        src/ParticleDrawer.h
+        src/Bloom.cpp
+        src/Bloom.h
 )
 
 # Include OpenMP
