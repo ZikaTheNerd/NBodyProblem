@@ -1,23 +1,17 @@
-
 #include "RenderLoop.h"
 
-RenderLoop::RenderLoop(const Window& win, bool showFps, bool vSync) :
-    window(win),
-    renderTimer(RenderTimer(showFps, vSync)),
-    pauseSimulation(true)
-{}
+RenderLoop::RenderLoop(const Window &win, bool showFps, bool vSync) : m_window(win),
+                                                                      m_renderTimer(RenderTimer(showFps, vSync)),
+                                                                      m_pauseSimulation(true) {
+}
 
-RenderLoop::RenderLoop()=default;
+RenderLoop::RenderLoop() = default;
 
 void RenderLoop::runLoop(ParticleSimulation *particleSimulation) {
-    this->pauseSimulation = true;
+    while (!glfwWindowShouldClose(m_window.getWindow())) {
+        m_renderTimer.updateTime(m_window, m_pauseSimulation);
 
-    while (!glfwWindowShouldClose(this->window.getWindow()))
-    {
-
-        this->renderTimer.updateTime(this->window, this->pauseSimulation);
-
-        if(!this->pauseSimulation){
+        if (!m_pauseSimulation) {
             particleSimulation->update();
         }
 
@@ -25,31 +19,29 @@ void RenderLoop::runLoop(ParticleSimulation *particleSimulation) {
 
         // ======================
         // Swap buffers: Front buffer(render) and back buffer (next render)
-        glfwSwapBuffers(this->window.getWindow());
+        glfwSwapBuffers(m_window.getWindow());
         // ======================
 
         // ======================
         // Checks if any events are triggered (keys pressed/released, mouse moved etc.) and calls the corresponding functions
         glfwPollEvents();
         // ======================
-
     }
 }
 
 void RenderLoop::setPauseSimulation(bool pause) {
-    this->pauseSimulation = pause;
+    m_pauseSimulation = pause;
 }
 
-bool RenderLoop::getPauseSimulation(){
-    return this->pauseSimulation;
+bool RenderLoop::getPauseSimulation() {
+    return m_pauseSimulation;
 }
 
 int RenderLoop::getIteration() {
-    return this->renderTimer.getIteration();
+    return m_renderTimer.getIteration();
 }
 
 
-RenderLoop::~RenderLoop(){
-    this->renderTimer.printFinalStats();
+RenderLoop::~RenderLoop() {
+    m_renderTimer.printFinalStats();
 }
-
